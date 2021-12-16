@@ -1,4 +1,9 @@
-<h1>PHP 8 Training...</h1>
 <?php
-phpinfo();
-?>
+$pdo = new PDO('mysql:dbname=myappdb;host=mariadb', 'myapp', 'apppass', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+$query = $pdo->query('SHOW VARIABLES like "version"');
+
+$row = $query->fetch();
+
+echo 'MySQL version:' . $row['Value'];
+

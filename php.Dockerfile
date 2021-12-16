@@ -3,7 +3,8 @@ RUN apt update
 RUN apt install --yes zip
 
 # EXTENSIONS
-RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo pdo_mysql
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # COMPOSER 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
