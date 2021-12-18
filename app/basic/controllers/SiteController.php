@@ -133,17 +133,17 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionNewHome($message = 'Hello')
+    public function actionSimple($message = 'Hello')
     {
         $model = new MyModel();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // valid data received in $model
             // do something meaningful here about $model ...
-            return $this->render('home', ['model' => $model]);
+            return $this->render('simple', ['model' => $model]);
         } else {
             // either the page is initially displayed or there is some validation error
-            return $this->render('home', ['model' => $model]);
+            return $this->render('simple', ['model' => $model]);
         }
     }
 
