@@ -1,9 +1,12 @@
-FROM php:8.1-fpm
+FROM php:8.0-fpm
 RUN apt update
-RUN apt install --yes zip
+RUN apt install --yes zip libgd3 libgd-dev
+
+ADD ./php.ini "$PHP_INI_DIR/php.ini"
 
 # EXTENSIONS
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-configure gd --with-freetype
+RUN docker-php-ext-install gd pdo pdo_mysql 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # COMPOSER 
