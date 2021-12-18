@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\MyModel;
+use app\models\Test;
+use yii\data\Pagination;
 
 class SiteController extends Controller
 {
@@ -147,4 +149,23 @@ class SiteController extends Controller
         }
     }
 
+    public function actionDb()
+    {
+        $query = Test::find();
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 2,
+            'totalCount' => $query->count(),
+        ]);
+
+        $ctypes = $query->orderBy('name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        return $this->render('tableview', [
+            'ctypes' => $ctypes,
+            'pagination' => $pagination,
+        ]);
+    }
 }
